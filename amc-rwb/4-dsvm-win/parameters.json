@@ -1,0 +1,73 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus"
+        },
+        "networkInterfaceName": {
+            "value": "dsvm-win-rwb545"
+        },
+        "networkSecurityGroupName": {
+            "value": "dsvm-win-rwb-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "priority": 1010,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
+        },
+        "subnetName": {
+            "value": "IaaS-subnet"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwb-rg/providers/Microsoft.Network/virtualNetworks/rwb-vnet"
+        },
+        "publicIpAddressName": {
+            "value": "dsvm-win-rwb-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "publicIpAddressSku": {
+            "value": "Basic"
+        },
+        "virtualMachineName": {
+            "value": "dsvm-win-rwb"
+        },
+        "virtualMachineRG": {
+            "value": "rwb-rg"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D2_v3"
+        },
+        "adminUsername": {
+            "value": "azure"
+        },
+        "adminPassword": {
+            "value": null
+        },
+        "diagnosticsStorageAccountName": {
+            "value": "rwbrgdiag"
+        },
+        "diagnosticsStorageAccountId": {
+            "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwb-rg/providers/Microsoft.Storage/storageAccounts/rwbrgdiag"
+        }
+    }
+}
