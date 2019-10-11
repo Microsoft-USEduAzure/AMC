@@ -7,15 +7,21 @@ $location = "eastus"
 $rwbrg = "$rwbname-rg"
 $rwbmgmtrg = "$rwbname"+ "mgmt-rg"
 
+# Deploy the foundational VNET for IaaS Workloads
+New-AzResourceGroup -name $rwbmgmtrg -Location $location
+$vnetparams = @{
+    vnetName = @("rwb-vnet")
+}
+$vnetdeploy = New-AzResourceGroupDeployment -TemplateParameterObject $vnetparams -TemplateFile ".\0-foundation\rwbvnet.template.json" -ResourceGroupName $rwbmgmtrg
 
-
-# Deploy the foundational VNET If not deploying the Bastion Host
-#New-AzResourceGroupDeployment -TemplateParameterFile ".\0-foundation\parameters.json" -TemplateFile ".\0-foundation\template.json" -ResourceGroupName $rwbmgmtrg
-
+$vnet = Get-AzVirtualNetwork -ResourceGroupName $rwbmgmtrg -Name ($vnetdeploy.ParametersString | ? {$_.name -eq "vnetName"})
 # Deploy Resource Group for VNET and Bastion Host
 New-AzResourceGroup -name $rwbmgmtrg -Location $location
 # Deploy the Bastion Host for Secured VNET access to all your IaaS resources
 New-AzResourceGroupDeployment -TemplateFile ".\1-azbastionbroker\bastiondeploy.json" -ResourceGroupName $rwbmgmtrg -TemplateParameterFile ".\1-azbastionbroker\bastiondeploy.parameters.json" -location $location 
+
+# Deploy the foundational VNET for IaaS Workloads
+New-AzResourceGroupDeployment -TemplateParameterFile ".\0-foundation\rwbvnet.parameters.json" -TemplateFile ".\0-foundation\rwbvnet.template.json" -ResourceGroupName $rwbmgmtrg
 
 # Now Let's Deploy the Workbench Resources
 New-AzResourceGroup -name $rwbrg -Location $location
