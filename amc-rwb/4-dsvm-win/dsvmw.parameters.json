@@ -6,10 +6,10 @@
             "value": "eastus"
         },
         "networkInterfaceName": {
-            "value": "dsvm-win-rwb545"
+            "value": "dsvmw1123"
         },
         "networkSecurityGroupName": {
-            "value": "dsvm-win-rwb-nsg"
+            "value": "dsvmw1-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -31,22 +31,13 @@
             ]
         },
         "subnetName": {
-            "value": "IaaS-subnet"
+            "value": "IaaS-Subnet"
         },
         "virtualNetworkId": {
-            "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwb-rg/providers/Microsoft.Network/virtualNetworks/rwb-vnet"
-        },
-        "publicIpAddressName": {
-            "value": "dsvm-win-rwb-ip"
-        },
-        "publicIpAddressType": {
-            "value": "Dynamic"
-        },
-        "publicIpAddressSku": {
-            "value": "Basic"
+            "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwbmgmt-rg/providers/Microsoft.Network/virtualNetworks/rwb-vnet"
         },
         "virtualMachineName": {
-            "value": "dsvm-win-rwb"
+            "value": "dsvmw1"
         },
         "virtualMachineRG": {
             "value": "rwb-rg"
