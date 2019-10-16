@@ -44,3 +44,8 @@ $udsvmparams | ConvertTo-Json -Depth 100 | foreach { [System.Text.RegularExpress
 
 ## Now deploy the DSVM to Azure
 New-AzResourceGroupDeployment -TemplateFile ".\2-dsvm-ubuntu\udsvm.template.json" -ResourceGroupName $rwbrg -TemplateParameterFile '.\custom-udsvm.parameters.json' -location $location 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ed786e6256483d028e55af0c6f4fe28a7acccd4a
