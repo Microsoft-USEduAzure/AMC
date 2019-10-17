@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "networkInterfaceName": {
+      "value": "dsvmw1123"
+    },
+    "networkSecurityGroupName": {
+      "value": "dsvmw1-nsg"
+    },
+    "networkSecurityGroupRules": {
+      "value": [
+        {
+          "name": "RDP",
+          "properties": {
+            "priority": 1010,
+            "protocol": "TCP",
+            "access": "Allow",
+            "direction": "Inbound",
+            "sourceApplicationSecurityGroups": [],
+            "destinationApplicationSecurityGroups": [],
+            "sourceAddressPrefix": "*",
+            "sourcePortRange": "*",
+            "destinationAddressPrefix": "*",
+            "destinationPortRange": "3389"
+          }
+        }
+      ]
+    },
+    "subnetName": {
+      "value": "IaaS-Subnet"
+    },
+    "virtualNetworkId": {
+      "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwbmgmt-rg/providers/Microsoft.Network/virtualNetworks/rwb-vnet"
+    },
+    "virtualMachineName": {
+      "value": "dsvmw1"
+    },
+    "virtualMachineRG": {
+      "value": "rwb-rg"
+    },
+    "osDiskType": {
+      "value": "StandardSSD_LRS"
+    },
+    "virtualMachineSize": {
+      "value": "Standard_D2_v3"
+    },
+    "adminUsername": {
+      "value": "azure"
+    },
+    "adminPassword": {
+      "value": "R3searchingonC!l0ud9"
+    },
+    "diagnosticsStorageAccountName": {
+      "value": "rwbrgdiag"
+    },
+    "diagnosticsStorageAccountId": {
+      "value": "Microsoft.Storage/storageAccounts/rwbrgdiag"
+    }
+  }
+}

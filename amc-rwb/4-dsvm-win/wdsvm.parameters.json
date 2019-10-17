@@ -52,13 +52,13 @@
             "value": "azure"
         },
         "adminPassword": {
-            "value": null
+            "value": "R3searchingonC!l0ud9"
         },
         "diagnosticsStorageAccountName": {
             "value": "rwbrgdiag"
         },
         "diagnosticsStorageAccountId": {
-            "value": "/subscriptions/07d0cb6d-265f-4eff-b07f-cd6d26fbbd59/resourceGroups/rwb-rg/providers/Microsoft.Storage/storageAccounts/rwbrgdiag"
+            "value": "Microsoft.Storage/storageAccounts/rwbrgdiag"
         }
     }
 }
