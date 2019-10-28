@@ -1,0 +1,8 @@
+DW100c              DataWarehouse  DataWarehouse            900         DTU     True
+DW200c              DataWarehouse  DataWarehouse            1800        DTU     True
+DW300c              DataWarehouse  DataWarehouse            2700        DTU     True
+DW400c              DataWarehouse  DataWarehouse            3600        DTU     True
+DW500c              DataWarehouse  DataWarehouse            4500        DTU     True
+DW1000c             DataWarehouse  DataWarehouse            9000        DTU     True
+DW1500c             DataWarehouse  DataWarehouse            13500       DTU     True
+DW2000c             DataWarehouse  DataWarehouse            18000       DTU     True
