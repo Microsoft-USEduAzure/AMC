@@ -1,7 +1,7 @@
 # TITLE: New Research Workbench Deploy
 # DETAILS: Deploy a mixed IaaS/PaaS Research environment secured to allow for on-prem to Azure but not Internet to Azure research computing
 # AUTHOR: Joey Brakefield
-# TODO: Add Keyvault, parameterize VM names
+# TODO: Add Keyvault, parameterize VM names, invoke from BASH to PoSH and PoSH to BASH
 
 $rwbname = "rwb"
 $location = "eastus"
@@ -31,6 +31,21 @@ $bastionparams = @{
 }
 New-AzResourceGroupDeployment -TemplateFile ".\1-azbastionbroker\bastiondeploy.json" -ResourceGroupName $rwbmgmtrg -TemplateParameterObject $bastionparams -location $location 
 
+# Working from local WSL/Debian Installation?
+## If working from WSL Debian (Windows Store), use these instructions
+
+sudo apt-get update
+sudo apt-get install curl
+sudo apt-get install wget
+
+
+
+# Install Powershell Core
+## Follow the MS Doc: 
+## https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6#debian-10
+## Then install the following:
+sudo apt-get update
+sudo apt-get install libunwind8 icu-devtools
 
 # Now Let's Deploy the Workbench Resources
 New-AzResourceGroup -name $rwbrg -Location $location
