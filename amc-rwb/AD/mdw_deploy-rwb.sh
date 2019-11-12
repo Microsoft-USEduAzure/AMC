@@ -265,7 +265,7 @@ az configure --defaults sql-server=$servername
 # Enhancement-  add dyanmice for capacity/sku here, too.
 az sql db create \
 	--resource-group $groupname \
-	--name HiEd_Staging \
+	--name AMC_Synthea_Staging \
         --service-objective S0 \
         --capacity 10 \
 	--zone-redundant false 
@@ -344,15 +344,15 @@ echo "Part II logs into the SQL Server and deploys the logical objects, support 
 if [ "$data" == "yes" ];
 then
   echo "Loading Example Schema and Data-  This will take about an hour to perform the data load."
-  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN HigherEDProxyUser WITH PASSWORD = '${password}'; "
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "hied_dw.sql"
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_enroll.sql"
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_data.sql"
+  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN AMCResearcherProxyUser WITH PASSWORD = '${password}'; "
+  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "hied_dw.sql"
+  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_enroll.sql"
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "syntheaDBwData.sql"
   echo "Data and object build for both databases is complete.  Counts for views in last steps to log should have counts in each."
 else
   echo "Request is for schema only, no data, the objects, no data will be built inside the databases."
-  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN HigherEDProxyUser WITH PASSWORD = '${password}'; "
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "mdw_ddl_dw.sql"
+  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN AMCResearcherProxyUser WITH PASSWORD = '${password}'; "
+  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "mdw_ddl_dw.sql"
   sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "mdw_ddl_staging.sql"
   echo "Object Build for both databases is complete.  No data was loaded, so zero rows are expected in counts of views"
 fi
