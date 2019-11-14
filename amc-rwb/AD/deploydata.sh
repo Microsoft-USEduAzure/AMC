@@ -141,6 +141,8 @@ export spassword=$password"!"
 export myip=$(curl http://ifconfig.me)
 export startip=$myip
 export endip=$myip
+export rwbstartip="10.5.2.0"
+export rwbendip="10.5.2.255"
 export logfile=./mdw_deploy.txt
 export adminlogin=sqladmin
 export schema='$schema'
@@ -266,6 +268,14 @@ az sql server firewall-rule create \
 	-n AllowYourIp \
 	--start-ip-address $startip \
 	--end-ip-address $endip
+
+# Configure a FW rule for RWB compute
+az sql server firewall-rule create \
+	--resource-group $groupname \
+	--server $servername \
+	-n AllowRWBCompute \
+	--start-ip-address $rwbstartip \
+	--end-ip-address $rwbendip
 
 az configure --defaults sql-server=$servername
 # Create a database for the staging database
