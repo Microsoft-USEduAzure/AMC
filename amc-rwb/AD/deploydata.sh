@@ -57,7 +57,7 @@ if [ ! -f "$templateFile1" ]; then
         exit 1
 fi
 
-templateFile2="template2.json"
+templateFile2="./template2.json"
 
 if [ ! -f "$templateFile2" ]; then
         echo "$templateFile2 not found"
