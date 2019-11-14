@@ -7,7 +7,10 @@ $rwbname = "rwb"
 $location = "eastus"
 $rwbrg = "$rwbname-rg"
 $rwbmgmtrg = "$rwbname"+ "mgmt-rg"
-
+$scriptpath = "./github/AMC/amc-rwb"
+# For Execution in Azure Cloud Shell
+cd $file
+cd $scriptpath
 # Deploy the foundational VNET for IaaS Workloads
 New-AzResourceGroup -name $rwbmgmtrg -Location $location
 $vnetparams = @{
