@@ -6,7 +6,6 @@ IFS=$'\n\t'
 #---------------------------------------------------------------
 # mdw_deploy.sh
 # Author: Kellyn Gorman
-# -- Modified for AMC by Joey Brakefield
 # Deploys Modern Data Warehouse Solution via Azure CLI to Azure
 # Scripted- 04/24/2019
 #---------------------------------------------------------------
@@ -200,15 +199,9 @@ EOF
 #---------------------------------------------------------------
 
 # Unzip data load files
-
-#rm -rf ./hied_data
-#unzip hied_data.zip
-#mv ./hied_data/* .
-rm -rf ./amc_data
-md /amc_data
-unzip SyntheaData.zip amc_data 
-
-
+rm -rf ./hied_data
+unzip hied_data.zip
+mv ./hied_data/* .
 
 # Set default subscription ID if not already set by customer.
 # Created on 10/14/2018
@@ -272,7 +265,7 @@ az configure --defaults sql-server=$servername
 # Enhancement-  add dyanmice for capacity/sku here, too.
 az sql db create \
 	--resource-group $groupname \
-	--name AMC_Synthea_Staging \
+	--name HiEd_Staging \
         --service-objective S0 \
         --capacity 10 \
 	--zone-redundant false 
@@ -281,7 +274,7 @@ az sql db create \
 # Enhancement-  add dynamic for capacity/sku here, too
 az sql db create \
         --resource-group $groupname \
-        --name AMC_DW \
+        --name HiEd_DW \
         --service-objective S0 \
         --capacity 10 \
         --zone-redundant false 
@@ -351,19 +344,17 @@ echo "Part II logs into the SQL Server and deploys the logical objects, support 
 if [ "$data" == "yes" ];
 then
   echo "Loading Example Schema and Data-  This will take about an hour to perform the data load."
-  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN AMCResearcherProxyUser WITH PASSWORD = '${password}'; "
-  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "hied_dw.sql"
-  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_enroll.sql"
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d AMC_Synthea_Staging -i "./amc_data/syntheaDBwData.sql"
+  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN HigherEDProxyUser WITH PASSWORD = '${password}'; "
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "hied_dw.sql"
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_enroll.sql"
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "hied_staging_data.sql"
   echo "Data and object build for both databases is complete.  Counts for views in last steps to log should have counts in each."
-  rm -rf ./amc_data
 else
   echo "Request is for schema only, no data, the objects, no data will be built inside the databases."
-  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN AMCResearcherProxyUser WITH PASSWORD = '${password}'; "
-  #sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "mdw_ddl_dw.sql"
-  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d AMC_Synthea_Staging -i "./amc_data/syntheaDBschema.sql"
+  sqlcmd -U $adminlogin -S"${servername}.database.windows.net" -P "$spassword" -d master -Q "CREATE LOGIN HigherEDProxyUser WITH PASSWORD = '${password}'; "
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_DW -i "mdw_ddl_dw.sql"
+  sqlcmd -U $adminlogin -S "${servername}.database.windows.net" -P "$spassword" -d HiEd_Staging -i "mdw_ddl_staging.sql"
   echo "Object Build for both databases is complete.  No data was loaded, so zero rows are expected in counts of views"
-  rm -rf ./amc_data
 fi
 # Part II is now complete, onto Part III, logging
 

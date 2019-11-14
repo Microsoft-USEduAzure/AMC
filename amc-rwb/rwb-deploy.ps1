@@ -31,12 +31,6 @@ $bastionparams = @{
 }
 New-AzResourceGroupDeployment -TemplateFile ".\1-azbastionbroker\bastiondeploy.json" -ResourceGroupName $rwbmgmtrg -TemplateParameterObject $bastionparams -location $location 
 
-# Working from local WSL/Debian Installation?
-## If working from WSL Debian (Windows Store), use these instructions
-
-sudo apt-get update
-sudo apt-get install curl
-sudo apt-get install wget
 
 
 
