@@ -31,4 +31,3 @@ function Install-AzureADStandard()
 
 # Now to execute per the fhir-server-samples original repo --> https://github.com/Microsoft/fhir-server-samples
 connect-azureAd -tenantdomain cdc7af66-55f5-47de-a929-1cf27eef876c
- 
